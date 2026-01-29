@@ -1,0 +1,18 @@
+docker build -t sales-api:v1 .
+
+docker login
+
+docker tag sales-api:v1 eliezer206568107/sales-api:v1
+
+docker push eliezer206568107/sales-api:v1
+
+oc apply -f k8s/
+
+oc expose service sales-api    
+
+oc get pods
+
+oc get services
+
+oc get routes
+

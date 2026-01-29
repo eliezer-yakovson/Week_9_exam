@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 import time
-
+import os
 # Database initialization script
 # Students should NOT modify this file
 # This runs automatically when the server starts
@@ -14,14 +14,16 @@ def init_database():
     """
     max_retries = 30
     retry_delay = 2
-    
+
     for attempt in range(max_retries):
         try:
             # Connect to MySQL server (without specifying database)
             connection = mysql.connector.connect(
-                host='mysql',
-                user='root',
-                password='rootpassword',
+                host=os.getenv("DB_HOST", "mysql"),
+                port=int(os.getenv("DB_PORT", "3306")),
+                user=os.getenv("DB_USER", "root"),
+                password=os.getenv("MYSQL_ROOT_PASSWORD", "1234")
+                database=os.getenv("MYSQL_DATABASE", "sales_db")
                 use_pure=True
             )
             cursor = connection.cursor()

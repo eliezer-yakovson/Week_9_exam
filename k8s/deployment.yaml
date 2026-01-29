@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sales-db-deployment
+  labels:
+    app: sales-db-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sales-db-api
+  template:
+    metadata:
+      labels:
+        app: sales-db-api
+    spec:
+      containers:
+      - name: sales-db-api
+        image: eliezer206568107/sales-api:v1
+        ports:
+        - containerPort: 8000
+        env:
+            - name: DB_HOST
+              value: "mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: "root"
+            - name: MYSQL_DATABASE
+              value: "sales_db"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1234"
